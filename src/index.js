@@ -11,7 +11,7 @@ const mongoose = require("mongoose");
 
 app.use(express.json()); // convert request body into json
 
-cors.use(cors());
+app.use(cors());
 
 app.use("/users", userRoute);
 app.use("/quiz", quizRoute);
