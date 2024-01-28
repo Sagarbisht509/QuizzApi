@@ -49,7 +49,8 @@ const createQuiz = async (req, res) => {
 
 const getAllQuizzes = async (req, res) => {
     try {
-        const quizzes = await quizModel.find({ userId: req.userId });
+        //const quizzes = await quizModel.find({ userId: req.userId });
+        const quizzes = await quizModel.find();
         res.status(200).json({
             status: "success",
             data: quizzes
