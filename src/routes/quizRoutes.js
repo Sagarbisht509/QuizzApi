@@ -5,8 +5,6 @@ const auth = require("../middleware/auth");
 
 quizRoute.get('/', auth, getAllQuizzes);
 
-quizRoute.get('/:code', auth, getQuizByCode);
-
 quizRoute.get('/quizzes', auth, getQuizByCategories);
 
 quizRoute.post('/', auth, createQuiz);
@@ -18,5 +16,7 @@ quizRoute.put('/:id', auth, updateQuiz);
 quizRoute.get('/top', auth, getTopRatedQuizzes);
 
 quizRoute.put('/upvote/:id', auth, upVote);
+
+quizRoute.get('/:code', auth, getQuizByCode);
 
 module.exports = quizRoute;
