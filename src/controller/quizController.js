@@ -21,7 +21,7 @@ const createQuiz = async (req, res) => {
             await firstQuizCode.save();
         } catch (error) {
             console.log(error);
-            res.status(500).json({ status: "error", message: "Something went wrong" });
+            res.status(500).json({message: "Something went wrong" });
         }
     }
 
@@ -36,14 +36,10 @@ const createQuiz = async (req, res) => {
 
     try {
         await newQuiz.save();
-        res.status(201).json({
-            status: "success",
-            message: "New quiz added successfully.",
-            data: newQuiz
-        });
+        res.status(201).json(newQuiz);
     } catch (error) {
         console.log(error);
-        res.status(400).json({ status: "error", message: "Invalid request. Please check your parameters and try again." });
+        res.status(400).json({message: "Invalid request. Please check your parameters and try again." });
     }
 }
 
@@ -51,16 +47,10 @@ const getAllQuizzes = async (req, res) => {
     try {
         //const quizzes = await quizModel.find({ userId: req.userId });
         const quizzes = await quizModel.find();
-        res.status(200).json({
-            status: "success",
-            data: quizzes
-        });
+        res.status(200).json(quizzes);
     } catch (error) {
         console.log(error);
-        res.status(500).json({
-            status: "error",
-            message: "Something went wrong"
-        });
+        res.status(500).json({message: "Something went wrong"});
     }
 }
 
@@ -79,10 +69,10 @@ const updateQuiz = async (req, res) => {
 
     try {
         await quizModel.findByIdAndUpdate(quizId, newQuiz, { new: true });
-        res.status(200).json({ status: "success", message: "Quiz updated successfully", data: newQuiz });
+        res.status(200).json(newQuiz);
     } catch (error) {
         console.log(error);
-        res.status(500).json({ status: "error", message: "Something went wrong" });
+        res.status(500).json({ message: "Something went wrong" });
     }
 }
 
@@ -90,17 +80,10 @@ const deleteQuiz = async (req, res) => {
     const quizId = req.params.id;
     try {
         const deletedQuiz = await quizModel.findOneAndDelete({ _id: quizId });
-        res.status(202).json({
-            status: "success",
-            message: "Quiz deleted successfully",
-            data: deletedQuiz
-        });
+        res.status(202).json(deletedQuiz);
     } catch (error) {
         console.log(error);
-        res.status(500).json({
-            status: "error",
-            message: "Something went wrong"
-        });
+        res.status(500).json({ message: "Something went wrong" });
     }
 }
 
@@ -111,38 +94,26 @@ const upVote = async (req, res) => {
 
     const alreadyVoted = await quizModel.findOne({ upVotedBy: voterId });
     if (alreadyVoted) {
-        return res.status(400).json({
-            status: "error",
-            message: "already voted"
-        });
+        return res.status(400).json({ message: "already voted" });
     }
 
     try {
         await quizModel.updateOne({ _id: quizId }, { $inc: { voteCount: 1 } });
         await quizModel.updateOne({ _id: quizId }, { $push: { upVotedBy: voterId } });
-        res.status(200).json({
-            status: "success",
-            message: "Upvoted successful"
-        });
+        res.status(200).json({ message: "Upvoted successful" });
     } catch (error) {
         console.log(error);
-        res.status(500).json({ status: "error", message: "Something went wrong" });
+        res.status(500).json({ message: "Something went wrong" });
     }
 }
 
 const getTopRatedQuizzes = async (req, res) => {
     try {
         const topQuizzes = await quizModel.find().sort({ voteCount: -1 }).limit(5);
-        res.status(200).json({
-            status: "success",
-            data: topQuizzes
-        });
+        res.status(200).json(topQuizzes);
     } catch (error) {
         console.log(error);
-        res.status(500).json({
-            status: "error",
-            message: "Something went wrong"
-        });
+        res.status(500).json({ message: "Something went wrong" });
     }
 }
 
@@ -156,14 +127,11 @@ const getQuizByCode = async (req, res) => {
         if (!quiz) {
             res.json({ status: "Invalid", message: "Invalid Quiz Code" });
         } else {
-            res.json({
-                status: "success",
-                data: quiz
-            });
+            res.json(quiz);
         }
     } catch (error) {
         console.log(error);
-        res.json({ status: "error", message: error.message });
+        res.json({ message: error.message });
     }
 }
 
