@@ -190,10 +190,32 @@ const frogotPassword = async (req, res) => {
     }
 }
 
+const updateFavoriteQuizzes = async (req, res) => {
+
+    const  favoriteQuizIds = req.body;
+    const userId = req.params.id;
+
+    try {
+        const userExist = await UserModel.findOne({ _id: userId });
+        if (userExist) {
+            return res.status(400).json({ message: "User doesn't exist" });
+        }
+
+        userExist.favoriteQuizIds = favoriteQuizIds;
+        await userExist.save();
+
+        res.status(200).json({ message: 'Favorite quizzes updated successfully' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+}
+
 module.exports = {
     signin,
     signup,
     verifyOTP,
     resendOtpVerificationCode,
-    frogotPassword
+    frogotPassword,
+    updateFavoriteQuizzes
 };

@@ -17,6 +17,10 @@ const UserSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    favoriteQuizIds: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Quiz"
+    }],
     verified: Boolean,
     exp: Number,
 }, { timestamps: true });
