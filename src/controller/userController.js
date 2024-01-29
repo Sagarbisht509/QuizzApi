@@ -207,7 +207,7 @@ const updateFavoriteQuizzes = async (req, res) => {
         res.status(200).json({ message: 'Favorite quizzes updated successfully' });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: 'Internal server error' });
+        res.status(500).json({ message: error });
     }
 }
 
