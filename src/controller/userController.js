@@ -192,11 +192,11 @@ const frogotPassword = async (req, res) => {
 
 const updateFavoriteQuizzes = async (req, res) => {
 
-    const  favoriteQuizIds = req.body;
+    const favoriteQuizIds = req.body;
     const userId = req.params.id;
 
     try {
-        const userExist = await UserModel.findOne({ _id: userId });
+        const userExist = await UserModel.findById(userId);
         if (userExist) {
             return res.status(400).json({ message: "User doesn't exist" });
         }

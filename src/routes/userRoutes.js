@@ -13,6 +13,6 @@ userRoute.post("/resendOTP", resendOtpVerificationCode);
 
 userRoute.post("/forgotPassword", frogotPassword);
 
-userRoute.post("/updateFavoriteQuiz", auth, updateFavoriteQuizzes);
+userRoute.put("/updateFavoriteQuiz", auth, updateFavoriteQuizzes);
 
 module.exports = userRoute;
