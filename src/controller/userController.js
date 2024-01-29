@@ -197,7 +197,7 @@ const updateFavoriteQuizzes = async (req, res) => {
 
     try {
         const userExist = await UserModel.findById(userId);
-        if (userExist) {
+        if (!userExist) {
             return res.status(400).json({ message: "User doesn't exist" });
         }
 
