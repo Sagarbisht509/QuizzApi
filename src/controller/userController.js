@@ -210,11 +210,32 @@ const updateFavoriteQuizzes = async (req, res) => {
     }
 }
 
+const updateAvatar = async (req, res) => {
+
+    const { userId, avatar } = req.body;
+
+    try {
+        const userExist = await UserModel.findById(userId);
+        if (!userExist) {
+            return res.status(400).json({ message: "User doesn't exist" });
+        }
+
+        userExist.avatar = avatar;
+        await userExist.save();
+
+        res.status(200).json({ message: 'Avatar updated successfully' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+}
+
 module.exports = {
     signin,
     signup,
     verifyOTP,
     resendOtpVerificationCode,
     frogotPassword,
-    updateFavoriteQuizzes
+    updateFavoriteQuizzes,
+    updateAvatar
 };
