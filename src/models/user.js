@@ -23,6 +23,7 @@ const UserSchema = mongoose.Schema({
     }],
     verified: Boolean,
     exp: Number,
+    quizAttempt: Number,
 }, { timestamps: true });
 
 const UserModel = mongoose.model("User", UserSchema);

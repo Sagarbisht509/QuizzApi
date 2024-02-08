@@ -1,5 +1,5 @@
 const express = require("express");
-const { signup, signin, verifyOTP, resendOtpVerificationCode, frogotPassword, updateFavoriteQuizzes, updateAvatar } = require("../controller/userController");
+const { signup, signin, verifyOTP, resendOtpVerificationCode, frogotPassword, updateFavoriteQuizzes, updateAvatar, updateUserDetails } = require("../controller/userController");
 const userRoute = express.Router();
 
 userRoute.post("/signup", signup);
@@ -15,5 +15,7 @@ userRoute.post("/forgotPassword", frogotPassword);
 userRoute.put("/updateFavoriteQuiz", updateFavoriteQuizzes);
 
 userRoute.put("/updateAvatar", updateAvatar)
+
+userRoute.put("/updateDetails", updateUserDetails)
 
 module.exports = userRoute;
