@@ -1,5 +1,12 @@
 const mongoose = require("mongoose");
 
+//Schema For the Question
+const QuestionSchema = mongoose.Schema({
+    question: String,
+    options: [String],
+    answer: String
+});
+
 const QuizSchema = mongoose.Schema({
     title: {
         type: String,
@@ -9,14 +16,7 @@ const QuizSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    questions: [{
-        question: String,
-        option1: String,
-        option2: String,
-        option3: String,
-        option4: String,
-        correctAnswer: String
-    }],
+    questions: [QuestionSchema],
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
